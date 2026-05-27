@@ -32,6 +32,9 @@ export function AssistantChat() {
   const recogRef = useRef<any>(null);
   const finalTranscriptRef = useRef<string>("");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const sendingRef = useRef(false);
+  const lastSentRef = useRef<{ text: string; ts: number }>({ text: "", ts: 0 });
+  const greetedRef = useRef(false);
 
   const greeting = useMemo(() => {
     const addr = addressFor(profile);
@@ -39,17 +42,30 @@ export function AssistantChat() {
   }, [profile]);
 
   useEffect(() => {
+    if (greetedRef.current) return;
+    greetedRef.current = true;
     setMessages([{ id: uid(), role: "assistant", content: greeting, ts: Date.now() }]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+    const el = scrollRef.current;
+    if (!el) return;
+    const id = requestAnimationFrame(() => {
+      el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    });
+    return () => cancelAnimationFrame(id);
   }, [messages]);
 
   async function send(prompt?: string) {
     const text = (prompt ?? input).trim();
-    if (!text || streaming) return;
+    if (!text) return;
+    if (sendingRef.current || streaming) return;
+    // Drop accidental duplicate submits (double-click, StrictMode re-run, etc.)
+    const now = Date.now();
+    if (lastSentRef.current.text === text && now - lastSentRef.current.ts < 1500) return;
+    lastSentRef.current = { text, ts: now };
+    sendingRef.current = true;
     setInput("");
 
     const userMsg: ChatMessage = { id: uid(), role: "user", content: text, ts: Date.now() };
@@ -72,10 +88,12 @@ export function AssistantChat() {
         setMessages((prev) => prev.map((m) => (m.id === assistantMsg.id ? { ...m, content: acc } : m)));
       },
       onDone: () => {
+        sendingRef.current = false;
         setStreaming(false);
         if (voiceReply && acc) speak(acc);
       },
       onError: (err) => {
+        sendingRef.current = false;
         setStreaming(false);
         setMessages((prev) =>
           prev.map((m) =>
