@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Fragment } from "react";
 import { PageHeader, PageShell, ResponsibleAINotice } from "@/components/layout/PageHeader";
 
 export const Route = createFileRoute("/schedule")({
@@ -27,8 +28,8 @@ function SchedulePage() {
             <div key={d} className="text-xs font-medium text-center text-muted-foreground py-2">{d}</div>
           ))}
           {HOURS.map((h) => (
-            <>
-              <div key={`h-${h}`} className="text-[11px] text-muted-foreground text-right pr-2 py-3 font-mono">{h}:00</div>
+            <Fragment key={h}>
+              <div className="text-[11px] text-muted-foreground text-right pr-2 py-3 font-mono">{h}:00</div>
               {DAYS.map((d) => {
                 const ev = EVENTS[d]?.find((e) => e.hour === h);
                 return (
@@ -42,7 +43,7 @@ function SchedulePage() {
                   </div>
                 );
               })}
-            </>
+            </Fragment>
           ))}
         </div>
       </div>
