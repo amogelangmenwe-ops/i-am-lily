@@ -7,22 +7,31 @@ export function getSpeechRecognition(): SR | null {
   return w.SpeechRecognition || w.webkitSpeechRecognition || null;
 }
 
-// Prefer warm, professional female voices across platforms.
+// Prefer warm, professional **British English female** voices first
+// (closest match to a friendly, modern Black British woman on Web Speech API).
 // Order matters — first match wins.
 const FEMALE_VOICE_PATTERNS: RegExp[] = [
-  /Samantha/i,                        // macOS / iOS — warm, natural
-  /Ava\s*\(Premium\)/i,               // macOS Ava premium
+  // British English neural / premium voices
+  /Microsoft\s+(Sonia|Libby|Mia|Maisie|Hollie|Abbi|Bella)/i, // Windows / Edge en-GB neural
+  /Google\s+UK\s+English\s+Female/i,
+  /Serena.*\(Premium\)/i,                   // macOS Serena (en-GB)
+  /Serena/i,
+  /Kate/i,                                  // macOS en-GB
+  /Stephanie/i,                             // macOS en-GB
+  /Martha/i,                                // macOS en-GB
+  /Daniel.*Female/i,
+  // Other British / Commonwealth female voices
+  /Moira/i,                                 // Irish English, warm tone
+  /Tessa/i,                                 // South African English
+  /Fiona/i,                                 // Scottish English
+  /Karen/i,                                 // Australian English
+  // Premium US fallbacks (still female, warm)
+  /Samantha/i,
+  /Ava\s*\(Premium\)/i,
   /\bAva\b/i,
   /Allison/i,
-  /Serena/i,
   /Victoria/i,
-  /Karen/i,
-  /Moira/i,
-  /Tessa/i,
-  /Fiona/i,
-  /Susan/i,
-  /Microsoft\s+(Aria|Jenny|Michelle|Sonia|Libby|Emma|Zira)/i, // Windows / Edge neural
-  /Google\s+UK\s+English\s+Female/i,
+  /Microsoft\s+(Aria|Jenny|Michelle|Emma|Zira)/i,
   /Google\s+US\s+English\b(?!.*Male)/i,
   /female/i,
 ];
@@ -37,14 +46,22 @@ const MALE_VOICE_PATTERNS: RegExp[] = [
 function pickFemaleVoice(): SpeechSynthesisVoice | null {
   const voices = window.speechSynthesis.getVoices();
   if (!voices.length) return null;
-  const en = voices.filter((v) => v.lang?.toLowerCase().startsWith("en"));
-  const pool = en.length ? en : voices;
-  for (const re of FEMALE_VOICE_PATTERNS) {
-    const hit = pool.find((v) => re.test(v.name));
-    if (hit) return hit;
+  const enGB = voices.filter((v) => v.lang?.toLowerCase().startsWith("en-gb"));
+  const enAny = voices.filter((v) => v.lang?.toLowerCase().startsWith("en"));
+  // Try en-GB pool first (proper British accent), then any English voice.
+  for (const pool of [enGB, enAny, voices]) {
+    if (!pool.length) continue;
+    for (const re of FEMALE_VOICE_PATTERNS) {
+      const hit = pool.find(
+        (v) => re.test(v.name) && !MALE_VOICE_PATTERNS.some((m) => m.test(v.name)),
+      );
+      if (hit) return hit;
+    }
   }
-  // Last resort: any en voice that isn't obviously male.
-  return pool.find((v) => !MALE_VOICE_PATTERNS.some((re) => re.test(v.name))) || pool[0] || null;
+  // Last resort: prefer any en-GB voice not obviously male, else any en voice.
+  const safe = (pool: SpeechSynthesisVoice[]) =>
+    pool.find((v) => !MALE_VOICE_PATTERNS.some((re) => re.test(v.name)));
+  return safe(enGB) || safe(enAny) || enAny[0] || voices[0] || null;
 }
 
 let cachedVoice: SpeechSynthesisVoice | null = null;
@@ -95,15 +112,15 @@ export async function speak(text: string, opts?: { rate?: number; pitch?: number
   const voice = await ensureVoiceReady();
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(clean);
-  // Calm, warm, professional female cadence
-  u.rate = opts?.rate ?? 0.98;
-  u.pitch = opts?.pitch ?? 1.08;
+  // Warm, friendly British female cadence — slightly slower, slightly brighter pitch.
+  u.rate = opts?.rate ?? 0.96;
+  u.pitch = opts?.pitch ?? 1.05;
   u.volume = 1;
   if (voice) {
     u.voice = voice;
-    u.lang = voice.lang || "en-US";
+    u.lang = voice.lang || "en-GB";
   } else {
-    u.lang = "en-US";
+    u.lang = "en-GB";
   }
   window.speechSynthesis.speak(u);
 }
