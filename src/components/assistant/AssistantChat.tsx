@@ -30,6 +30,7 @@ export function AssistantChat() {
   const [showProfile, setShowProfile] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   const recogRef = useRef<any>(null);
+  const finalTranscriptRef = useRef<string>("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const greeting = useMemo(() => {
@@ -105,18 +106,18 @@ export function AssistantChat() {
     r.lang = "en-US";
     r.interimResults = true;
     r.continuous = false;
+    finalTranscriptRef.current = "";
     r.onresult = (e: any) => {
       let txt = "";
       for (let i = e.resultIndex; i < e.results.length; i++) txt += e.results[i][0].transcript;
+      finalTranscriptRef.current = txt;
       setInput(txt);
     };
     r.onend = () => {
       setListening(false);
-      // auto-send if we captured something
-      setInput((cur) => {
-        if (cur.trim()) send(cur);
-        return cur;
-      });
+      const captured = finalTranscriptRef.current.trim();
+      finalTranscriptRef.current = "";
+      if (captured) send(captured);
     };
     r.onerror = () => setListening(false);
     recogRef.current = r;
@@ -125,9 +126,9 @@ export function AssistantChat() {
   }
 
   return (
-    <div className="flex flex-col h-full bg-card rounded-2xl border border-border shadow-soft overflow-hidden">
+    <div className="flex flex-col h-full min-h-0 bg-card rounded-2xl border border-border shadow-soft overflow-hidden">
       {/* Header */}
-      <header className="flex items-center gap-3 px-5 py-4 border-b border-border bg-gradient-hero">
+      <header className="shrink-0 flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 border-b border-border bg-gradient-hero">
         <div className="w-9 h-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-medium tracking-tight">
           A
         </div>
@@ -154,7 +155,7 @@ export function AssistantChat() {
       </header>
 
       {/* Messages */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-6 space-y-4">
+      <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-4 sm:px-5 py-4 sm:py-6 space-y-4">
         {messages.map((m) => (
           <MessageBubble key={m.id} msg={m} />
         ))}
@@ -162,7 +163,7 @@ export function AssistantChat() {
 
       {/* Quick actions */}
       {messages.length <= 1 && (
-        <div className="px-5 pb-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <div className="shrink-0 px-4 sm:px-5 pb-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
           {QUICK_PROMPTS.map((q) => (
             <button
               key={q.label}
@@ -178,7 +179,7 @@ export function AssistantChat() {
       )}
 
       {/* Composer */}
-      <div className="border-t border-border p-3 bg-background/60">
+      <div className="shrink-0 border-t border-border p-3 bg-background/60 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div className="flex items-end gap-2 bg-card rounded-2xl border border-border p-2 focus-within:ring-2 focus-within:ring-ring transition-all">
           <button
             onClick={toggleListening}

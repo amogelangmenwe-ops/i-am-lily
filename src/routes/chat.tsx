@@ -16,7 +16,7 @@ function ChatPage() {
   return (
     <PageShell>
       <PageHeader title="AI Assistant" subtitle="Type, dictate, or upload — Ava handles the rest." />
-      <div className="h-[calc(100vh-220px)] min-h-[520px]">
+      <div className="h-[calc(100svh-180px)] min-h-[480px] flex flex-col">
         <AssistantChat />
       </div>
       <div className="mt-5">
