@@ -45,7 +45,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
             <Sparkles className="w-4 h-4" />
           </div>
           <div className="min-w-0">
-            <h2 className="font-semibold tracking-tight leading-tight">Ava</h2>
+            <h2 className="font-semibold tracking-tight leading-tight">Lilly</h2>
             <p className="text-[11px] text-muted-foreground">Workplace Assistant</p>
           </div>
           <button
@@ -79,7 +79,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
         <div className="px-4 py-3 border-t border-border text-[11px] text-muted-foreground flex items-start gap-2">
           <ShieldAlert className="w-3.5 h-3.5 mt-0.5 shrink-0 text-primary" />
           <span>
-            Responsible AI: review AI suggestions before sending. Ava supports — it doesn't replace — your judgement.
+            Responsible AI: review AI suggestions before sending. Lilly supports — she doesn't replace — your judgement.
           </span>
         </div>
       </aside>
@@ -101,7 +101,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
           >
             <Menu className="w-5 h-5" />
           </button>
-          <span className="font-semibold tracking-tight">Ava</span>
+          <span className="font-semibold tracking-tight">Lilly</span>
         </header>
         <main className="flex-1 min-h-0">{children}</main>
       </div>

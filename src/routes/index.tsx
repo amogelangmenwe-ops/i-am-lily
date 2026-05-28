@@ -16,17 +16,17 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Ava — AI Workplace Assistant" },
+      { title: "Lilly — AI Workplace Assistant" },
       {
         name: "description",
         content:
-          "Ava is an executive-grade AI assistant: draft emails, plan your day, summarize, and stay on top of work — by voice or text.",
+          "Lilly is a warm, professional AI workplace assistant: draft emails, plan your day, summarise, and stay on top of work — by voice or text.",
       },
-      { property: "og:title", content: "Ava — AI Workplace Assistant" },
+      { property: "og:title", content: "Lilly — AI Workplace Assistant" },
       {
         property: "og:description",
         content:
-          "Draft emails, plan your day, and stay on top of work with a voice-enabled AI executive assistant.",
+          "Draft emails, plan your day, and stay on top of work with Lilly — your voice-enabled AI workplace assistant.",
       },
     ],
   }),
@@ -44,7 +44,7 @@ function Index() {
             to="/chat"
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground rounded-xl px-4 py-2.5 text-sm font-medium shadow-soft hover:opacity-90 transition"
           >
-            <Sparkles className="w-4 h-4" /> Ask Ava
+            <Sparkles className="w-4 h-4" /> Ask Lilly
           </Link>
         }
       />
@@ -151,7 +151,7 @@ function Index() {
             </h2>
             <p className="text-sm text-muted-foreground">
               You've completed <strong className="text-foreground">68%</strong> of planned tasks this week.
-              Mornings are your most productive window — Ava suggests blocking
+              Mornings are your most productive window — Lilly suggests blocking
               9–11 AM for deep work.
             </p>
           </div>
@@ -168,7 +168,7 @@ function Index() {
             <MessageSquare className="w-5 h-5" />
           </div>
           <div className="flex-1">
-            <h3 className="font-medium tracking-tight">Chat with Ava</h3>
+            <h3 className="font-medium tracking-tight">Chat with Lilly</h3>
             <p className="text-sm text-muted-foreground">
               Draft an email, plan your day, or summarize a document — by text or voice.
             </p>
