@@ -137,6 +137,19 @@ Some future improvements for Lilly may include:
 💖 Personalized productivity tracking
 ⭐ Workflow automation features
 
+---------
+# 💻 Accessing Lilly
+
+Lilly is hosted online using Lovable and can be accessed directly through the live project link.
+
+🌸 Live Demo
+Paste your Lovable project link here
+
+Users can open the link in their browser to interact with the AI workplace assistant without needing local installation.
+
+The platform is fully responsive and works on desktop, tablet, and mobile devices 💖
+
+
 ---
 
 # 🌸 Final Thoughts
