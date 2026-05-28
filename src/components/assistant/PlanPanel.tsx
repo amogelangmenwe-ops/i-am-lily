@@ -83,7 +83,7 @@ export function PlanPanel() {
           </li>
         ))}
         {items.length === 0 && (
-          <li className="text-sm text-muted-foreground text-center py-8">No tasks yet. Ask Ava to plan your day.</li>
+          <li className="text-sm text-muted-foreground text-center py-8">No tasks yet. Ask Lilly to plan your day.</li>
         )}
       </ul>
 

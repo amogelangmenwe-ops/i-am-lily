@@ -69,6 +69,33 @@ export function timeOfDayGreeting(): string {
   return "Good evening";
 }
 
+// Rotating daily quotes for Lilly's greeting. One per day-of-year, with a
+// small offset so users see a fresh one even if they revisit.
+const DAILY_QUOTES: string[] = [
+  "As much as your morning didn't start perfectly, you still have the power to change how the day ends. ✨",
+  "Small progress is still progress 🌱",
+  "One task at a time — you're doing better than you think.",
+  "Your future self will thank you for starting today ✨",
+  "Coffee first… productivity second ☕😂",
+  "Even the busiest days can be organised one step at a time.",
+  "A calm plan creates a better day.",
+  "You survived 100% of your stressful meetings so far 😌",
+  "Tiny wins count too 🎉",
+  "Don't worry about perfect — focus on progress.",
+  "Your schedule doesn't control you… Lilly helps with that 😄",
+  "Deep breath. We've got today, together. 💛",
+  "Done is better than perfect — let's ship it.",
+  "Today is a fresh page. Let's write something good. 📖",
+];
+
+export function dailyQuote(): string {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now.getTime() - start.getTime();
+  const dayOfYear = Math.floor(diff / 86_400_000);
+  return DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length];
+}
+
 export function uid(): string {
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }

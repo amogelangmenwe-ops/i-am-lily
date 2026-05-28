@@ -30,7 +30,7 @@ export function ProfileDialog({
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground"><X className="w-4 h-4" /></button>
         </div>
         <p className="text-sm text-muted-foreground mb-5">
-          Ava will use this to address you and tailor responses.
+          Lilly will use this to address you and tailor responses.
         </p>
         <div className="space-y-4">
           <label className="block">

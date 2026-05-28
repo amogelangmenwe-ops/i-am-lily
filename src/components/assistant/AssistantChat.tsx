@@ -6,6 +6,7 @@ import {
   streamChat,
   addressFor,
   timeOfDayGreeting,
+  dailyQuote,
   type ChatMessage,
   type Profile,
 } from "@/lib/assistant";
@@ -38,7 +39,7 @@ export function AssistantChat() {
 
   const greeting = useMemo(() => {
     const addr = addressFor(profile);
-    return `${timeOfDayGreeting()}, ${addr}. I'm Ava, your workplace assistant. How can I help you today — draft an email, plan your day, summarize something, or prepare for a meeting?`;
+    return `Hi there${addr ? `, ${addr}` : ""}! I'm Lilly 😊 ${timeOfDayGreeting()} — hope you're doing okay today.\n\nA little something for you: "${dailyQuote()}"\n\nWhat would you like help planning today — an email, your schedule, a few tasks, or something you're looking forward to organising?`;
   }, [profile]);
 
   useEffect(() => {
@@ -148,10 +149,10 @@ export function AssistantChat() {
       {/* Header */}
       <header className="shrink-0 flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 border-b border-border bg-gradient-hero">
         <div className="w-9 h-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-medium tracking-tight">
-          A
+          L
         </div>
         <div className="flex-1 min-w-0">
-          <h1 className="text-base font-medium tracking-tight leading-tight">Ava</h1>
+          <h1 className="text-base font-medium tracking-tight leading-tight">Lilly</h1>
           <p className="text-xs text-muted-foreground">Your workplace assistant · {streaming ? "thinking…" : "online"}</p>
         </div>
         <button
@@ -219,7 +220,7 @@ export function AssistantChat() {
                 send();
               }
             }}
-            placeholder={listening ? "Listening…" : "Message Ava — try ‘Draft a follow-up to John about the proposal’"}
+            placeholder={listening ? "Listening…" : "Message Lilly — try ‘Draft a follow-up to John about the proposal’"}
             rows={1}
             className="flex-1 bg-transparent resize-none outline-none text-[15px] py-2 px-2 max-h-40"
           />

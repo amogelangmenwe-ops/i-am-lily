@@ -3,14 +3,14 @@ import { PageHeader, PageShell, ResponsibleAINotice } from "@/components/layout/
 import { Bell, Mail, CalendarDays, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/notifications")({
-  head: () => ({ meta: [{ title: "Notifications — Ava" }] }),
+  head: () => ({ meta: [{ title: "Notifications — Lilly" }] }),
   component: NotificationsPage,
 });
 
 const ITEMS = [
   { icon: Mail, text: "Sarah replied to your proposal email.", time: "5m ago" },
   { icon: CalendarDays, text: "Reminder: Product sync at 11:00.", time: "30m ago" },
-  { icon: CheckCircle2, text: "Ava drafted 2 follow-up emails for review.", time: "1h ago" },
+  { icon: CheckCircle2, text: "Lilly drafted 2 follow-up emails for review.", time: "1h ago" },
   { icon: Bell, text: "Weekly report ready to share.", time: "Yesterday" },
 ];
 
