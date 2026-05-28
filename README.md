@@ -129,13 +129,8 @@ The project includes transparency notices reminding users that AI responses may 
 
 Some future improvements for Lilly may include:
 
-⭐ Calendar synchronization
-💻 Team collaboration tools
-💖 Smarter AI memory
-⭐ Advanced analytics
-💻 Mobile application support
-💖 Personalized productivity tracking
-⭐ Workflow automation features
+ Calendar synchronization|Team collaboration tools | Smarter AI memory |Advanced analytics | Mobile application support | Personalized productivity tracking | Workflow automation features
+
 
 ---------
 # 💻 Accessing Lilly
