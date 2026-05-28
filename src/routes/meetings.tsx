@@ -3,7 +3,7 @@ import { PageHeader, PageShell, ResponsibleAINotice } from "@/components/layout/
 import { Users, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/meetings")({
-  head: () => ({ meta: [{ title: "Meetings — Ava" }] }),
+  head: () => ({ meta: [{ title: "Meetings — Lilly" }] }),
   component: MeetingsPage,
 });
 
@@ -16,7 +16,7 @@ const MEETINGS = [
 function MeetingsPage() {
   return (
     <PageShell>
-      <PageHeader title="Meetings" subtitle="Prep notes and summaries — handled by Ava." />
+      <PageHeader title="Meetings" subtitle="Prep notes and summaries — handled by Lilly." />
       <div className="grid gap-4">
         {MEETINGS.map((m, i) => (
           <div key={i} className="rounded-2xl bg-card border border-border shadow-soft p-5">

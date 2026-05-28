@@ -3,7 +3,7 @@ import { PageHeader, PageShell, ResponsibleAINotice } from "@/components/layout/
 import { Mail, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/emails")({
-  head: () => ({ meta: [{ title: "Emails — Ava" }] }),
+  head: () => ({ meta: [{ title: "Emails — Lilly" }] }),
   component: EmailsPage,
 });
 
@@ -19,10 +19,10 @@ function EmailsPage() {
     <PageShell>
       <PageHeader
         title="Emails"
-        subtitle="Ava can draft replies, summarize threads, and follow-up for you."
+        subtitle="Lilly can draft replies, summarize threads, and follow-up for you."
         actions={
           <Link to="/chat" className="inline-flex items-center gap-2 bg-primary text-primary-foreground rounded-xl px-4 py-2 text-sm font-medium hover:opacity-90">
-            <Sparkles className="w-4 h-4" /> Draft with Ava
+            <Sparkles className="w-4 h-4" /> Draft with Lilly
           </Link>
         }
       />

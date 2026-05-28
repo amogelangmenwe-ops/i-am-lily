@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { PageHeader, PageShell, ResponsibleAINotice } from "@/components/layout/PageHeader";
 
 export const Route = createFileRoute("/schedule")({
-  head: () => ({ meta: [{ title: "Schedule — Ava" }] }),
+  head: () => ({ meta: [{ title: "Schedule — Lilly" }] }),
   component: SchedulePage,
 });
 

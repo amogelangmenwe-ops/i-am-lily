@@ -3,7 +3,7 @@ import { PageHeader, PageShell, ResponsibleAINotice } from "@/components/layout/
 import { useState } from "react";
 
 export const Route = createFileRoute("/settings")({
-  head: () => ({ meta: [{ title: "Settings — Ava" }] }),
+  head: () => ({ meta: [{ title: "Settings — Lilly" }] }),
   component: SettingsPage,
 });
 
@@ -29,7 +29,7 @@ function Toggle({ label, hint, defaultOn = true }: { label: string; hint?: strin
 function SettingsPage() {
   return (
     <PageShell>
-      <PageHeader title="Settings" subtitle="Configure Ava to match your workflow." />
+      <PageHeader title="Settings" subtitle="Configure Lilly to match your workflow." />
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="rounded-2xl bg-card border border-border shadow-soft p-5">
           <h3 className="font-medium tracking-tight mb-2">Assistant</h3>

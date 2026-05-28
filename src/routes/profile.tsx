@@ -4,7 +4,7 @@ import { loadProfile, saveProfile, addressFor, type Profile, type Salutation } f
 import { PageHeader, PageShell, ResponsibleAINotice } from "@/components/layout/PageHeader";
 
 export const Route = createFileRoute("/profile")({
-  head: () => ({ meta: [{ title: "Profile — Ava" }] }),
+  head: () => ({ meta: [{ title: "Profile — Lilly" }] }),
   component: ProfilePage,
 });
 
@@ -25,7 +25,7 @@ function ProfilePage() {
 
   return (
     <PageShell>
-      <PageHeader title="Profile" subtitle={`Ava will address you as "${addressFor(profile) || "you"}".`} />
+      <PageHeader title="Profile" subtitle={`Lilly will address you as "${addressFor(profile) || "you"}".`} />
       <div className="max-w-xl rounded-2xl bg-card border border-border shadow-soft p-6 space-y-5">
         <label className="block">
           <span className="text-xs uppercase tracking-wider text-muted-foreground">Name</span>
